@@ -1,36 +1,30 @@
-const CACHE_NAME = "brewlogger-v3-cache";
-
-const ASSETS = [
-  "/brewlogger-v3/",
-  "/brewlogger-v3/index.html",
-  "/brewlogger-v3/css/style.css",
-  "/brewlogger-v3/js/app.js",
-  "/brewlogger-v3/manifest.webmanifest",
-  "/brewlogger-v3/icons/icon-192.png",
-  "/brewlogger-v3/icons/icon-512.png",
-  "/brewlogger-v3/icons/maskable-512.png"
-];
-
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
-});
-
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      )
-    )
-  );
-});
-
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
-  );
-});
+{
+  "name": "Brew Logger",
+  "short_name": "BrewLog",
+  "id": "/brewlogger-v3/",
+  "start_url": "/brewlogger-v3/",
+  "scope": "/brewlogger-v3/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1015",
+  "theme_color": "#7cf2d4",
+  "description": "A premium, tactile brew logging app for tracking homebrew batches.",
+  "icons": [
+    {
+      "src": "/brewlogger-v3/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/brewlogger-v3/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/brewlogger-v3/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
